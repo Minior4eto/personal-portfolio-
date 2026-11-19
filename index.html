@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f7f7f5" />
-    <meta name="description" content="Kris builds websites, apps and games by directing AI. Based in Malta. Projects: calilog, Omea, hogs, Readback, Nightfang." />
+    <meta name="description" content="Kris builds websites, apps and games by directing AI. Based in Malta. Projects: calilog, Omea, hogs, jrice, Readback, Nightfang." />
     <title>Kris — I build things with AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -229,6 +229,7 @@
       }
       a.card:hover { transform: translateY(-3px); border-color: #cfcfca; box-shadow: 0 14px 30px -18px rgba(0,0,0,.25); }
       .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .card .thumb { width: 100%; height: auto; border-radius: 10px; display: block; image-rendering: pixelated; background: #0b0c14; }
       .card h3 { font-size: 20px; font-weight: 500; letter-spacing: -.02em; }
       .tag {
         padding: 4px 10px;
@@ -330,6 +331,10 @@
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 4h16v3H2zm0 5h11v3H2zm0 5h6v3H2z" /></svg>
           <span>hogs</span>
         </a>
+        <a class="logo-item" href="#jrice">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 16q4-9 8-9t8 9zM9 2h2v3H9z" /></svg>
+          <span>jrice</span>
+        </a>
         <a class="logo-item" href="#readback">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 3q4-1 8 1v13q-4-2-8-1zm16 0q-4-1-8 1v13q4-2 8-1z" /></svg>
           <span>Readback</span>
@@ -362,6 +367,13 @@
           <div class="card-top"><h3>hogs</h3><span class="tag live">Open source</span></div>
           <p>A tiny terminal app that shows what’s hogging your disk. Sorted by size, with themes you can edit live.</p>
           <span class="meta">Rust · github.com/Minior4eto/hogs ↗</span>
+        </a>
+
+        <a class="card" id="jrice" href="https://github.com/Minior4eto/japan-rice" target="_blank" rel="noopener">
+          <img class="thumb" src="assets/jrice.gif" alt="Animated snowy shrine drawn in a terminal" loading="lazy" width="480" height="300" />
+          <div class="card-top"><h3>jrice</h3><span class="tag live">Open source</span></div>
+          <p>Animated Japan-themed scenes for your terminal: a temple, the great wave, a samurai, koi, a snowy shrine, a lighthouse and a rainy neon alley. Three render modes, and they follow your terminal theme.</p>
+          <span class="meta">Rust · github.com/Minior4eto/japan-rice ↗</span>
         </a>
 
         <article class="card" id="readback">
