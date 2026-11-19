@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f7f5" />
+    <meta name="description" content="Kris builds websites, apps and games by directing AI. Based in Malta. Projects: calilog, Omea, hogs, Readback, Nightfang." />
+    <title>Kris — I build things with AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f7f7f5;
+        --ink: #111111;
+        --mute: #9a9a9a;
+        --sub: #7b7b7b;
+        --line: #e4e4e0;
+        --card: #ffffff;
+        --dot: #0d0d0d;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Inter", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      a { color: inherit; }
+
+      /* ---------- HERO ---------- */
+      .hero {
+        position: relative;
+        height: 100vh;
+        min-height: 660px;
+        overflow: hidden;
+        isolation: isolate;
+        background: var(--bg);
+      }
+
+      #dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .nav, .copy, .logos { position: relative; z-index: 3; }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(18px, 2.6vw, 40px);
+        padding: 36px 24px 0;
+        font-size: 13.5px;
+        line-height: 1;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-right: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -.01em;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .brand-mark { width: 16px; height: 18px; fill: currentColor; }
+
+      .nav-links { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 40px); }
+      .nav-links a, .pill-link {
+        color: #3a3a3a;
+        text-decoration: none;
+        transition: color .2s ease;
+        white-space: nowrap;
+      }
+      .nav-links a:hover { color: #000; }
+
+      .pill-link {
+        margin-left: 10px;
+        padding: 10px 21px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 500;
+        transition: transform .25s ease, background .25s ease;
+      }
+      .pill-link:hover { transform: translateY(-1px); background: #000; color: #fff; }
+
+      .copy {
+        position: absolute;
+        top: 24.5%;
+        left: 50%;
+        width: min(92vw, 720px);
+        transform: translateX(-50%);
+        text-align: center;
+      }
+
+      h1 {
+        font-size: clamp(38px, 3.75vw, 68px);
+        font-weight: 500;
+        letter-spacing: -.035em;
+        line-height: 1.04;
+      }
+      h1 span { display: block; }
+      h1 .muted { color: var(--mute); }
+
+      .subline {
+        max-width: 360px;
+        margin: 20px auto 0;
+        color: var(--sub);
+        font-size: clamp(13px, 1.02vw, 15.5px);
+        line-height: 1.4;
+      }
+
+      .cta {
+        position: relative;
+        display: inline-block;
+        margin-top: clamp(34px, 3.6vw, 52px);
+      }
+      .cta::before {
+        position: absolute;
+        right: 10%; bottom: -6px; left: 10%;
+        height: 16px;
+        border-radius: 50%;
+        background: linear-gradient(90deg, #ffcf5a, #7dffa8, #5ad7ff, #9b7bff, #ff6fd8, #ffb36b);
+        content: "";
+        filter: blur(9px);
+        opacity: .85;
+        transition: bottom .3s ease, filter .3s ease, opacity .3s ease;
+      }
+      .cta a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 20px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 13.5px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: transform .3s ease, background .3s ease;
+      }
+      .cta:hover::before { bottom: -9px; filter: blur(12px); opacity: 1; }
+      .cta:hover a { transform: translateY(-1px); background: #000; }
+
+      .logos {
+        position: absolute;
+        bottom: clamp(28px, 6vh, 64px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 92vw;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 14px clamp(22px, 3.4vw, 48px);
+        padding: 14px 28px;
+        border-radius: 999px;
+        background: rgba(247, 247, 245, .92);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        color: #8d8d8d;
+        font-size: clamp(14px, 1.18vw, 17px);
+        font-weight: 500;
+        letter-spacing: -.01em;
+      }
+      .logo-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        white-space: nowrap;
+        text-decoration: none;
+        transition: color .2s ease;
+      }
+      .logo-item:hover { color: var(--ink); }
+      .logo-item svg { width: 17px; height: 17px; fill: currentColor; }
+
+      /* ---------- SECTIONS ---------- */
+      section.block {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: clamp(72px, 10vw, 128px) 24px 0;
+      }
+      .eyebrow {
+        color: var(--mute);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: .02em;
+      }
+      h2 {
+        margin-top: 10px;
+        font-size: clamp(28px, 3vw, 44px);
+        font-weight: 500;
+        letter-spacing: -.03em;
+        line-height: 1.08;
+      }
+      h2 .muted { color: var(--mute); }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 16px;
+        margin-top: 40px;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--card);
+        text-decoration: none;
+        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+      }
+      a.card:hover { transform: translateY(-3px); border-color: #cfcfca; box-shadow: 0 14px 30px -18px rgba(0,0,0,.25); }
+      .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .card h3 { font-size: 20px; font-weight: 500; letter-spacing: -.02em; }
+      .tag {
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--bg);
+        color: var(--sub);
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .tag.live { background: #e6f6ec; color: #1f7a45; }
+      .tag.wip { background: #fff2dc; color: #946014; }
+      .card p { color: var(--sub); font-size: 14.5px; line-height: 1.5; }
+      .card .meta { margin-top: auto; padding-top: 6px; color: #3a3a3a; font-size: 13px; font-weight: 500; }
+
+      .about-text {
+        max-width: 620px;
+        margin-top: 22px;
+        color: #3a3a3a;
+        font-size: clamp(16px, 1.3vw, 19px);
+        line-height: 1.55;
+      }
+      .about-text + .about-text { margin-top: 16px; color: var(--sub); }
+
+      .contact-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+      .contact-row a {
+        padding: 11px 20px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 13.5px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: transform .25s ease;
+      }
+      .contact-row a:hover { transform: translateY(-1px); }
+      .contact-row a.ghost { background: transparent; color: var(--ink); border: 1px solid #cfcfca; }
+
+      footer {
+        max-width: 1080px;
+        margin: clamp(72px, 10vw, 120px) auto 0;
+        padding: 28px 24px 40px;
+        border-top: 1px solid var(--line);
+        color: var(--mute);
+        font-size: 13px;
+      }
+
+      @media (max-width: 760px) {
+        .hero { min-height: 620px; }
+        .nav { justify-content: space-between; padding: 22px 18px 0; }
+        .nav-links { display: none; }
+        .brand { margin-right: 0; }
+        .pill-link { margin-left: 0; }
+        .copy { top: 20%; }
+        .logos { gap: 10px 20px; font-size: 13px; padding: 12px 20px; border-radius: 22px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="hero" id="top">
+      <canvas id="dots" aria-hidden="true"></canvas>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="#top" aria-label="Kris home">
+          <svg class="brand-mark" viewBox="0 0 16 18" aria-hidden="true">
+            <path d="M2 0h4v18H2zM7 9c3-1 5-4 6-9h3c-1 5-3 8-6 9 3 1 5 4 6 9h-3c-1-5-3-8-6-9z" />
+          </svg>
+          <span>Kris</span>
+        </a>
+        <div class="nav-links">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="pill-link" href="https://github.com/Minior4eto" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+
+      <section class="copy" aria-labelledby="hero-title">
+        <h1 id="hero-title">
+          <span class="muted">Hi, I’m Kris.</span>
+          <span>I build with AI.</span>
+        </h1>
+        <p class="subline">Websites, apps and games, designed by me and built together with AI. Based in Malta.</p>
+        <div class="cta">
+          <a href="#work">See my work</a>
+        </div>
+      </section>
+
+      <div class="logos" aria-label="Selected projects">
+        <a class="logo-item" href="#calilog">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M1 8h2v4H1zm3-2h2v8H4zm3 3h6v2H7zm7-3h2v8h-2zm3 2h2v4h-2z" /></svg>
+          <span>calilog</span>
+        </a>
+        <a class="logo-item" href="#omea">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1a9 9 0 110 18 9 9 0 010-18zm0 3a6 6 0 100 12 6 6 0 000-12zm0 3a3 3 0 110 6 3 3 0 010-6z" /></svg>
+          <span>Omea</span>
+        </a>
+        <a class="logo-item" href="#hogs">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 4h16v3H2zm0 5h11v3H2zm0 5h6v3H2z" /></svg>
+          <span>hogs</span>
+        </a>
+        <a class="logo-item" href="#readback">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 3q4-1 8 1v13q-4-2-8-1zm16 0q-4-1-8 1v13q4-2 8-1z" /></svg>
+          <span>Readback</span>
+        </a>
+        <a class="logo-item" href="#nightfang">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12 1a8 8 0 100 16 9 9 0 01-3-8 8 8 0 003-8z" /></svg>
+          <span>Nightfang</span>
+        </a>
+      </div>
+    </main>
+
+    <section class="block" id="work" aria-labelledby="work-title">
+      <p class="eyebrow">Selected work</p>
+      <h2 id="work-title">Things I’ve built. <span class="muted">Some live, some in progress.</span></h2>
+
+      <div class="grid">
+        <article class="card" id="calilog">
+          <div class="card-top"><h3>calilog</h3><span class="tag live">Live</span></div>
+          <p>A workout tracker for logging training sessions, running on my own virtual machine.</p>
+          <span class="meta">Self-hosted web app</span>
+        </article>
+
+        <a class="card" id="omea" href="https://tortiomea.com" target="_blank" rel="noopener">
+          <div class="card-top"><h3>Omea</h3><span class="tag live">Live</span></div>
+          <p>The website for my family’s cake business. I built it so the business has a home online.</p>
+          <span class="meta">tortiomea.com ↗</span>
+        </a>
+
+        <a class="card" id="hogs" href="https://github.com/Minior4eto/hogs" target="_blank" rel="noopener">
+          <div class="card-top"><h3>hogs</h3><span class="tag live">Open source</span></div>
+          <p>A tiny terminal app that shows what’s hogging your disk. Sorted by size, with themes you can edit live.</p>
+          <span class="meta">Rust · github.com/Minior4eto/hogs ↗</span>
+        </a>
+
+        <article class="card" id="readback">
+          <div class="card-top"><h3>Readback</h3><span class="tag">Built</span></div>
+          <p>An app where you hand it a book and it reads it to you.</p>
+          <span class="meta">App</span>
+        </article>
+
+        <article class="card" id="nightfang">
+          <div class="card-top"><h3>Nightfang</h3><span class="tag wip">In development</span></div>
+          <p>A Roblox game I’m working on right now.</p>
+          <span class="meta">Roblox</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="about" aria-labelledby="about-title">
+      <p class="eyebrow">About</p>
+      <h2 id="about-title">Bulgarian, living in Malta. <span class="muted">Building a bit of everything.</span></h2>
+      <p class="about-text">I don’t write code by hand. I’m very good at working with AI: I decide what to build, shape how it looks and feels, and push it until it works and ships.</p>
+      <p class="about-text">I’m open to jobs, freelance projects and collaborations, especially anything where fast, practical building with AI is the point.</p>
+    </section>
+
+    <section class="block" id="contact" aria-labelledby="contact-title">
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title">Let’s build something.</h2>
+      <div class="contact-row">
+        <a href="https://github.com/Minior4eto" target="_blank" rel="noopener">GitHub</a>
+        <!-- Add your email here when ready, for example:
+        <a class="ghost" href="mailto:you@example.com">Email me</a> -->
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> Kris · Malta</footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+    <script>
+      (() => {
+        const canvas = document.getElementById('dots');
+        const ctx = canvas.getContext('2d');
+        const LOOP = 24; // seconds; every wave uses whole multiples of this, so the loop is seamless
+        const TAU = Math.PI * 2;
+
+        let W = 0, H = 0, dpr = 1, step = 8, rowStep = 7, cols = 0, rows = 0, maxR = 3.4;
+        const pointer = { x: -9999, y: -9999, on: false };
+
+        const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+        const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+
+        function resize() {
+          const rect = canvas.getBoundingClientRect();
+          W = Math.max(1, Math.round(rect.width));
+          H = Math.max(1, Math.round(rect.height));
+          dpr = Math.min(2, window.devicePixelRatio || 1);
+          canvas.width = Math.round(W * dpr);
+          canvas.height = Math.round(H * dpr);
+          step = Math.max(7, W / 150);       // dot spacing (bigger = chunkier dots)
+          rowStep = step * .866;             // staggered rows give a honeycomb feel
+          maxR = step * .52;                 // biggest dot size
+          cols = Math.ceil(W / step) + 1;
+          rows = Math.ceil(H / rowStep) + 1;
+        }
+
+        function render(time) {
+          const a = TAU * (((time % LOOP) + LOOP) % LOOP) / LOOP;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          ctx.fillStyle = '#f7f7f5';
+          ctx.fillRect(0, 0, W, H);
+          ctx.fillStyle = '#0d0d0d';
+
+          const aspect = W / H;
+          const portrait = H > W;
+          // clear zone around the headline so the text stays readable (centre, half-width, half-height)
+          const qy = portrait ? .33 : .39;
+          const qrx = portrait ? W * .62 : Math.min(W * .30, 430);
+          const qry = (portrait ? .17 : .21) * H;
+
+          for (let j = 0; j < rows; j += 1) {
+            const y = j * rowStep;
+            const ny = y / H;
+            const env = .35 + .65 * smooth(.04, .22, ny);   // a little lighter right behind the nav
+            const offset = (j % 2) * step * .5;
+            for (let i = 0; i < cols; i += 1) {
+              const x = i * step + offset;
+              const nx = (x / W - .5) * aspect;
+
+              // domain warp makes the bands bend and flow instead of sliding in straight lines
+              const wx = nx + .20 * Math.sin(ny * 5 + a);
+              const wy = ny + .12 * Math.sin(nx * 4 - a);
+              const band =
+                .55 * Math.sin(wx * 6 + wy * 5 - a * 2) +
+                .30 * Math.sin(wx * 11 - wy * 3 + a * 3) +
+                .15 * Math.sin((wx + wy) * 19 - a * 4);
+              let v = smooth(-.15, .85, band * .5 + .5 + (band > 0 ? .0 : 0));
+              const qd = Math.hypot((x - W / 2) / qrx, (y - qy * H) / qry);
+              const nd = Math.hypot((x - W / 2) / (portrait ? W * .6 : 320), (y - 52) / 46);   // clear zone behind the nav
+              v = Math.pow(v, 1.15) * env * smooth(.85, 1.35, qd) * smooth(.8, 1.4, nd);
+
+              if (pointer.on) {
+                const dx = x - pointer.x, dy = y - pointer.y;
+                v += .55 * Math.exp(-(dx * dx + dy * dy) / (2 * 90 * 90)) * env * smooth(.85, 1.35, qd) * smooth(.8, 1.4, nd);
+              }
+
+              const r = maxR * clamp(v, 0, 1);
+              if (r < .7) continue;
+              ctx.beginPath();
+              ctx.arc(x, y, r, 0, TAU);
+              ctx.fill();
+            }
+          }
+        }
+
+        const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.addEventListener('resize', () => { resize(); if (still) render(8); }, { passive: true });
+        window.addEventListener('pointermove', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          pointer.x = e.clientX - rect.left;
+          pointer.y = e.clientY - rect.top;
+          pointer.on = pointer.y >= 0 && pointer.y <= rect.height;
+        }, { passive: true });
+        window.addEventListener('pointerleave', () => { pointer.on = false; });
+
+        resize();
+        const start = performance.now();
+        const frame = (now) => {
+          render((now - start) / 1000);
+          window.requestAnimationFrame(frame);
+        };
+        window.__render = render;
+        if (still) render(8); else window.requestAnimationFrame(frame);
+      })();
+    </script>
+  </body>
+</html>
