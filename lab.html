@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f7f5" />
+    <meta name="description" content="Kris's virtual machine lab: an OpenBSD server running calilog, a hardened iDeal OS install, and a shelf of distros tested on VirtualBox, UTM and QEMU." />
+    <title>Lab — Kris</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f7f7f5;
+        --ink: #111111;
+        --mute: #9a9a9a;
+        --sub: #7b7b7b;
+        --line: #e4e4e0;
+        --card: #ffffff;
+        --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Inter", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      a { color: inherit; }
+
+      /* ---------- NAV ---------- */
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(18px, 2.6vw, 40px);
+        padding: 36px 24px 0;
+        font-size: 13.5px;
+        line-height: 1;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-right: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -.01em;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .brand-mark { width: 16px; height: 18px; fill: currentColor; }
+      .nav-links { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 40px); }
+      .nav-links a, .pill-link {
+        color: #3a3a3a;
+        text-decoration: none;
+        transition: color .2s ease;
+        white-space: nowrap;
+      }
+      .nav-links a:hover, .nav-links a[aria-current="page"] { color: #000; }
+      .nav-links a[aria-current="page"] { font-weight: 500; }
+      .pill-link {
+        margin-left: 10px;
+        padding: 10px 21px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 500;
+        transition: transform .25s ease;
+      }
+      .pill-link:hover { transform: translateY(-1px); color: #fff; }
+
+      /* ---------- HEADER ---------- */
+      .page-head {
+        position: relative;
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: clamp(64px, 9vw, 112px) 24px 0;
+      }
+      .page-head::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 100%;
+        background-image: radial-gradient(circle, #0d0d0d 1.3px, transparent 1.6px);
+        background-size: 10px 10px;
+        -webkit-mask-image: linear-gradient(100deg, transparent 45%, #000 100%);
+        mask-image: linear-gradient(100deg, transparent 45%, #000 100%);
+        opacity: .16;
+        pointer-events: none;
+      }
+      .page-head > * { position: relative; }
+      .eyebrow {
+        color: var(--mute);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: .02em;
+      }
+      h1 {
+        margin-top: 10px;
+        font-size: clamp(38px, 4.4vw, 64px);
+        font-weight: 500;
+        letter-spacing: -.035em;
+        line-height: 1.04;
+      }
+      h1 .muted { color: var(--mute); }
+      .lede {
+        max-width: 560px;
+        margin-top: 20px;
+        color: var(--sub);
+        font-size: clamp(15px, 1.2vw, 18px);
+        line-height: 1.5;
+      }
+
+      /* ---------- SECTIONS ---------- */
+      section.block {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: clamp(64px, 8vw, 104px) 24px 0;
+      }
+      h2 {
+        margin-top: 10px;
+        font-size: clamp(26px, 2.8vw, 40px);
+        font-weight: 500;
+        letter-spacing: -.03em;
+        line-height: 1.1;
+      }
+      h2 .muted { color: var(--mute); }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 16px;
+        margin-top: 36px;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--card);
+      }
+      .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .card h3 { font-size: 20px; font-weight: 500; letter-spacing: -.02em; }
+      .card p { color: var(--sub); font-size: 14.5px; line-height: 1.5; }
+      .card .meta {
+        margin-top: auto;
+        padding-top: 6px;
+        color: #3a3a3a;
+        font-family: var(--mono);
+        font-size: 12.5px;
+      }
+      .tag {
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--bg);
+        color: var(--sub);
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .tag.live { background: #e6f6ec; color: #1f7a45; }
+
+      .grid.two { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
+
+      pre.diagram {
+        margin-top: 4px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        border-radius: 12px;
+        background: #0b0c14;
+        color: #d8dbe8;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        line-height: 1.55;
+      }
+
+      /* distro shelf */
+      .shelf {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 12px;
+        margin-top: 36px;
+        list-style: none;
+      }
+      .shelf li {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 18px 20px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--card);
+      }
+      .shelf .name { font-size: 16px; font-weight: 500; letter-spacing: -.01em; }
+      .shelf .base { color: var(--sub); font-family: var(--mono); font-size: 12px; }
+      .shelf .note { color: var(--sub); font-size: 13.5px; line-height: 1.45; }
+      .shelf-foot {
+        margin-top: 18px;
+        color: var(--mute);
+        font-family: var(--mono);
+        font-size: 12.5px;
+      }
+
+      .back-row { margin-top: 30px; }
+      .back-row a {
+        display: inline-block;
+        padding: 11px 20px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 13.5px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: transform .25s ease;
+      }
+      .back-row a:hover { transform: translateY(-1px); }
+
+      footer {
+        max-width: 1080px;
+        margin: clamp(72px, 10vw, 120px) auto 0;
+        padding: 28px 24px 40px;
+        border-top: 1px solid var(--line);
+        color: var(--mute);
+        font-size: 13px;
+      }
+
+      @media (max-width: 760px) {
+        .nav { justify-content: space-between; padding: 22px 18px 0; }
+        .nav-links { gap: 16px; }
+        .brand { margin-right: 0; }
+        .pill-link { display: none; }
+        .grid, .grid.two { grid-template-columns: minmax(0, 1fr); }
+        .card { padding: 22px; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="Kris home">
+        <svg class="brand-mark" viewBox="0 0 16 18" aria-hidden="true">
+          <path d="M2 0h4v18H2zM7 9c3-1 5-4 6-9h3c-1 5-3 8-6 9 3 1 5 4 6 9h-3c-1-5-3-8-6-9z" />
+        </svg>
+        <span>Kris</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#work">Work</a>
+        <a href="lab.html" aria-current="page">Lab</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <a class="pill-link" href="https://github.com/Minior4eto" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+
+    <header class="page-head">
+      <p class="eyebrow">Lab</p>
+      <h1>I run my own machines. <span class="muted">Virtual ones.</span></h1>
+      <p class="lede">I like installing, configuring and breaking operating systems. This is the setup behind my projects: what I run, what hosts what, and everything I’ve tried along the way.</p>
+    </header>
+
+    <section class="block" id="stack" aria-labelledby="stack-title">
+      <p class="eyebrow">The stack</p>
+      <h2 id="stack-title">Three ways I run VMs.</h2>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-top"><h3>VirtualBox</h3></div>
+          <p>The classic desktop hypervisor. Point-and-click VMs for trying something out.</p>
+          <span class="meta">Windows · Linux · macOS hosts</span>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><h3>UTM</h3></div>
+          <p>My VM app on the Mac. It’s built on QEMU and works well on Apple hardware.</p>
+          <span class="meta">macOS</span>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><h3>QEMU + virt-manager</h3></div>
+          <p>QEMU with virt-manager as the graphical front end. The more hands-on setup, with full control over the machine.</p>
+          <span class="meta">Linux</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="machines" aria-labelledby="machines-title">
+      <p class="eyebrow">Machines</p>
+      <h2 id="machines-title">What’s running. <span class="muted">And what it does.</span></h2>
+
+      <div class="grid two">
+        <article class="card">
+          <div class="card-top"><h3>OpenBSD server</h3><span class="tag live">Running</span></div>
+          <p>A virtual machine that serves calilog, my workout tracker. OpenBSD is known for security-focused defaults, which suits a machine that stays online.</p>
+          <pre class="diagram" aria-label="Diagram: visitor to OpenBSD VM to calilog">
+ visitor ──▶ OpenBSD VM ──▶ calilog
+ (browser)   (server)       (workout tracker)</pre>
+          <span class="meta">role: app server · hosts: calilog</span>
+          <!-- TODO (Kris): add what runs on it (web server, firewall, how calilog starts) and the OpenBSD version. -->
+        </article>
+
+        <article class="card">
+          <div class="card-top"><h3>iDeal OS</h3><span class="tag">Configured</span></div>
+          <p>A system built for secure payments. It ships with disk encryption, a firewall and sandboxing; I installed and configured it myself.</p>
+          <pre class="diagram" aria-label="List of iDeal OS security layers">
+ [ disk encryption ]
+ [ firewall        ]
+ [ sandboxing      ]</pre>
+          <span class="meta">role: secure payments · set up by me</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="distros" aria-labelledby="distros-title">
+      <p class="eyebrow">Distro shelf</p>
+      <h2 id="distros-title">Part-time distro hopper. <span class="muted">Here’s what I’ve tried.</span></h2>
+
+      <ul class="shelf">
+        <li>
+          <span class="name">Arch</span>
+          <span class="base">independent · rolling</span>
+          <span class="note">Build it yourself from the ground up.</span>
+        </li>
+        <li>
+          <span class="name">Artix</span>
+          <span class="base">Arch-based · no systemd</span>
+          <span class="note">Arch without systemd, with other init systems.</span>
+        </li>
+        <li>
+          <span class="name">Omarchy</span>
+          <span class="base">Arch-based</span>
+          <span class="note">An opinionated, ready-to-go Arch setup.</span>
+        </li>
+        <li>
+          <span class="name">GhostBSD</span>
+          <span class="base">FreeBSD-based</span>
+          <span class="note">A desktop-friendly take on the BSD side.</span>
+        </li>
+        <li>
+          <span class="name">Fedora</span>
+          <span class="base">RPM · Red Hat family</span>
+          <span class="note">Recent software with sensible defaults.</span>
+        </li>
+        <li>
+          <span class="name">Debian</span>
+          <span class="base">apt · stable</span>
+          <span class="note">The steady base lots of other distros build on.</span>
+        </li>
+      </ul>
+      <p class="shelf-foot">&gt; and the list keeps growing</p>
+
+      <div class="back-row"><a href="index.html">← Back to work</a></div>
+    </section>
+
+    <footer>© <span id="year"></span> Kris · Malta</footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

@@ -17,6 +17,10 @@ Personal portfolio of **Kris**. Websites, apps and games, designed by me and bui
 | **Readback** | An app where you hand it a book and it reads it to you. | Built |
 | **Nightfang** | A Roblox game I'm working on right now. | In development |
 
+## Lab
+
+A separate page ([`lab.html`](lab.html)) covering my virtual machine setup: VirtualBox, UTM and QEMU, an OpenBSD server running calilog, a hardened iDeal OS install, and a shelf of distros I've tried.
+
 ## About
 
 Bulgarian, living in Malta, building a bit of everything.
@@ -31,7 +35,7 @@ I'm open to jobs, freelance projects and collaborations, especially anything whe
 
 ## About this site
 
-- A single `index.html` file with plain HTML, CSS and vanilla JavaScript. No build step and no dependencies apart from the Inter font from Google Fonts.
+- Two static pages (`index.html` and `lab.html`) with plain HTML, CSS and vanilla JavaScript. No build step and no dependencies apart from the Inter font from Google Fonts.
 - The hero art is a canvas of flowing halftone dots drawn in code. The dots react to the cursor, and visitors with reduced motion turned on get a still frame.
 - Hosted on Vercel and redeployed automatically on every push to `main`.
 - Designed and built together with AI.
