@@ -14,6 +14,7 @@ Personal portfolio of **Kris**. Websites, apps and games, designed by me and bui
 | **Omea** | The website for my family's cake business. I built it so the business has a home online. [tortiomea.com](https://tortiomea.com) | Live |
 | **[hogs](https://github.com/Minior4eto/hogs)** | A tiny terminal app that shows what's hogging your disk. Sorted by size, with themes you can edit live. Written in Rust. | Open source |
 | **[jrice](https://github.com/Minior4eto/japan-rice)** | Animated Japan-themed scenes for your terminal (temple, great wave, samurai, koi, snowy shrine, lighthouse, rainy neon alley), with ASCII and braille-dot modes and terminal theme sync. Written in Rust. | Open source |
+| **[Wanderspace](wanderspace/)** | One philosophical YouTube video each day, under 25 minutes, with a question to carry and a private reflection space. | Live |
 | **Readback** | An app where you hand it a book and it reads it to you. | Built |
 | **Nightfang** | A Roblox game I'm working on right now. | In development |
 

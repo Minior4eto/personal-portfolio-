@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050507" />
+    <meta name="description" content="Wanderspace — one philosophical YouTube video, once a day. A little room to think." />
+    <title>Wanderspace — a daily philosophical detour</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas id="particle-field" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#today" aria-label="Wanderspace home">
+          <svg class="brand-mark" viewBox="0 0 42 42" aria-hidden="true">
+            <circle cx="21" cy="21" r="18.2" />
+            <path d="M21 7.8 23.4 17l9.1-4.9-6.8 7.9 9.7 3.5-10.1.9 2.5 9.8-6.7-7.6-6.2 8.1 2.2-10-9.8-2.1 10-2.5z" />
+            <circle cx="21" cy="21" r="2.1" class="brand-core" />
+          </svg>
+          <span class="brand-copy">
+            <span class="brand-name">WANDERSPACE</span>
+            <span class="brand-sub">A daily philosophical detour</span>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Main navigation">
+          <button class="nav-link active" data-view="today" type="button">Today</button>
+          <button class="nav-link" data-view="library" type="button">Library <span id="library-count">05</span></button>
+          <button class="nav-link" data-view="about" type="button">About</button>
+        </nav>
+
+        <div class="date-stamp" id="date-stamp">THURSDAY · NOV 26</div>
+      </header>
+
+      <main>
+        <section class="view active" id="view-today" aria-labelledby="today-heading">
+          <div class="intro-row">
+            <div>
+              <p class="eyebrow"><span class="eyebrow-dot"></span> YOUR DAILY PAUSE <span id="day-number">/ 001</span></p>
+              <h1 id="today-heading">One video.<br /><em>A little more perspective.</em></h1>
+            </div>
+            <div class="limit-note">
+              <span class="limit-icon">◷</span>
+              <span><strong>25 min max</strong><small>One good idea at a time</small></span>
+            </div>
+          </div>
+
+          <div class="daily-layout">
+            <section class="today-card" aria-label="Today's recommendation">
+              <div class="card-topline">
+                <span class="section-kicker">TODAY'S FIND</span>
+                <span class="today-date" id="full-date">NOVEMBER 26, 2026</span>
+              </div>
+
+              <div class="video-art" id="video-art">
+                <img id="video-thumb" src="https://img.youtube.com/vi/QFD96No33mw/hqdefault.jpg" alt="" />
+                <div class="art-vignette"></div>
+                <div class="art-caption">
+                  <span class="art-overline">A WANDERSPACE SELECTION</span>
+                  <span class="art-index" id="art-index">NO. 01</span>
+                </div>
+                <button class="play-button" id="play-button" type="button" aria-label="Play today's video">
+                  <span class="play-triangle"></span>
+                </button>
+                <span class="art-duration" id="art-duration">10:47</span>
+              </div>
+
+              <div class="video-info">
+                <div class="video-meta">
+                  <span class="topic" id="video-topic">IDENTITY · MEANING</span>
+                  <span class="runtime" id="video-runtime">10 MIN 47 SEC</span>
+                </div>
+                <h2 id="video-title">What if you're not special at all?</h2>
+                <p class="creator-line">A film by <span id="video-creator">Alastair</span></p>
+                <p class="video-description" id="video-description">A small reminder that a meaningful life doesn't need to be an extraordinary one. What matters is what you choose to give your attention to.</p>
+
+                <div class="video-actions">
+                  <button class="primary-button" id="watch-button" type="button"><span class="button-play">▶</span> Watch today's video</button>
+                  <button class="icon-button" id="save-button" type="button" aria-pressed="false" aria-label="Save video" title="Save for later">♡</button>
+                  <button class="icon-button" id="watched-button" type="button" aria-pressed="false" aria-label="Mark as watched" title="Mark as watched">✓</button>
+                  <a class="text-link" id="youtube-link" href="https://www.youtube.com/watch?v=QFD96No33mw" target="_blank" rel="noopener">YouTube ↗</a>
+                </div>
+                <div class="state-line" id="state-line" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <aside class="right-rail">
+              <section class="reflection-card">
+                <div class="rail-heading"><span class="section-kicker">A QUESTION TO CARRY</span><span class="spark">✳</span></div>
+                <p class="question" id="daily-question">If you stopped trying to be exceptional, what would you spend your life doing?</p>
+                <div class="reflection-rule"></div>
+                <label for="reflection-input" class="reflection-label">Leave a thought for yourself</label>
+                <textarea id="reflection-input" rows="3" maxlength="600" placeholder="No perfect answer needed…"></textarea>
+                <div class="reflection-footer">
+                  <span id="reflection-status">PRIVATE · SAVED ON THIS DEVICE</span>
+                  <button id="save-reflection" type="button">Save note ↗</button>
+                </div>
+              </section>
+
+              <section class="ritual-card">
+                <span class="section-kicker">THE SMALL RITUAL</span>
+                <div class="ritual-steps">
+                  <div class="ritual-step"><span>01</span><p>Watch without multitasking.</p></div>
+                  <div class="ritual-step"><span>02</span><p>Let one idea stay with you.</p></div>
+                  <div class="ritual-step"><span>03</span><p>Take it back into your day.</p></div>
+                </div>
+                <div class="next-drop"><span>NEXT WANDER IN</span><strong id="countdown">02:34:18</strong></div>
+              </section>
+            </aside>
+          </div>
+
+          <div class="bottom-note">
+            <span>LESS SCROLLING, MORE WONDERING.</span>
+            <span class="bottom-line"></span>
+            <span>MADE FOR THE SPACE BETWEEN THOUGHTS.</span>
+          </div>
+        </section>
+
+        <section class="view" id="view-library" aria-labelledby="library-heading">
+          <div class="page-heading">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> THE WATCH SHELF</p>
+            <h1 id="library-heading">A few doors<br /><em>worth opening.</em></h1>
+            <p class="page-subtitle">A small, deliberate collection. Every video in the daily rotation is under 25 minutes.</p>
+          </div>
+          <div class="filter-row">
+            <div class="filters" role="group" aria-label="Filter videos by theme">
+              <button class="filter-chip active" data-filter="all" type="button">All</button>
+              <button class="filter-chip" data-filter="existentialism" type="button">Existentialism</button>
+              <button class="filter-chip" data-filter="mortality" type="button">Mortality</button>
+              <button class="filter-chip" data-filter="identity" type="button">Identity</button>
+              <button class="filter-chip" data-filter="meaning" type="button">Meaning</button>
+            </div>
+            <div class="shelf-tally" id="shelf-tally">05 VERIFIED PICKS</div>
+          </div>
+          <div class="library-grid" id="library-grid"></div>
+          <section class="seed-shelf" aria-labelledby="seed-heading">
+            <div class="seed-head">
+              <div><p class="section-kicker">THE ORIGINAL SPARKS</p><h2 id="seed-heading">Your starting points.</h2></div>
+              <span class="seed-count">04 LINKS</span>
+            </div>
+            <p class="seed-explainer">These are the references you gave me. Three still need their title and runtime checked, so they stay out of the daily rotation until we can guarantee the 25-minute limit.</p>
+            <div class="seed-links" id="seed-links"></div>
+          </section>
+        </section>
+
+        <section class="view" id="view-about" aria-labelledby="about-heading">
+          <div class="page-heading">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> WHY THIS EXISTS</p>
+            <h1 id="about-heading">A little space<br /><em>to think for yourself.</em></h1>
+          </div>
+          <div class="about-grid">
+            <div class="about-copy">
+              <p>Wanderspace is a tiny counterweight to the endless feed. One philosophical video, chosen for the day, and a question worth keeping around after the screen goes dark.</p>
+              <p>No streaks to protect. No algorithm trying to keep you here. No pressure to turn every thought into a productivity project.</p>
+              <p>Just one thoughtful detour, under 25 minutes.</p>
+            </div>
+            <div class="about-specs">
+              <div><span>CADENCE</span><strong>One video / day</strong></div>
+              <div><span>MAXIMUM LENGTH</span><strong>25 minutes</strong></div>
+              <div><span>YOUR NOTES</span><strong>Local to this device</strong></div>
+              <div><span>RECOMMENDER</span><strong>Curated rotation</strong></div>
+            </div>
+          </div>
+          <div class="about-footer"><span>WANDERSPACE / 001</span><span>BUILT TO MAKE ROOM FOR CURIOSITY.</span></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="player-modal" id="player-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="player-heading">
+      <div class="modal-backdrop" data-close-player></div>
+      <div class="player-panel">
+        <div class="player-header"><div><span class="section-kicker">NOW PLAYING</span><h2 id="player-heading">Today's video</h2></div><button class="modal-close" type="button" id="close-player" aria-label="Close player">×</button></div>
+        <div class="player-frame-wrap" id="player-frame-wrap"></div>
+        <div class="player-footer"><span>TAKE YOUR TIME. THERE'S ONLY ONE.</span><a id="modal-youtube-link" href="#" target="_blank" rel="noopener">Open on YouTube ↗</a></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
